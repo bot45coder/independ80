@@ -2,128 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>India From Particles | Independence Day</title>
-
-    <meta name="theme-color" content="#0b1220">
-
+    <meta name="description" content="An award-winning interactive particle experience celebrating India's Independence Day.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <!-- Premium Animated Background Layer -->
+    <div class="background-canvas-container">
+        <canvas id="bgCanvas"></canvas>
+    </div>
 
-    <!-- Background Canvas -->
-    <canvas id="bgCanvas"></canvas>
+    <!-- Main Particle Engine Layer -->
+    <canvas id="mainCanvas"></canvas>
 
-    <!-- Particle Canvas -->
-    <canvas id="particleCanvas"></canvas>
-
-    <!-- Glow Layer -->
-    <canvas id="glowCanvas"></canvas>
-
-    <!-- Hero -->
-    <section class="hero">
-
-        <div class="badge">
-            🇮🇳 79th Independence Day
-        </div>
-
-        <h1>
-            INDIA
-        </h1>
-
-        <p id="subtitle">
-            Every particle has a story...
-        </p>
-
-        <button id="startBtn">
-            Begin Journey
+    <!-- Glassmorphism UI Overlay -->
+    <div id="ui-container" class="glass-panel">
+        <h1 class="gradient-text">Every Particle Has A Story</h1>
+        <p class="subtitle">A tribute to the spirit of India</p>
+        <button id="start-btn" class="glow-button">
+            <span>Begin Journey</span>
         </button>
-
-    </section>
-
-    <!-- Scroll Hint -->
-    <div class="scrollHint">
-        Move Mouse • Touch Screen
     </div>
 
-    <!-- Loading -->
-    <div id="loading">
-
-        <div class="loader"></div>
-
-        <span>
-            Initializing Particle Engine...
-        </span>
-
-    </div>
-
-    <!-- Stage Indicator -->
-
-    <div class="stage">
-
-        <span id="stageText">
-            Stage 1 / 4
-        </span>
-
-    </div>
-
-    <!-- FPS Counter (Development) -->
-
-    <div id="fps">
-        FPS: 0
-    </div>
-
-    <!-- Overlay -->
-
-    <div id="overlay"></div>
-
-    <!-- Audio -->
-
-    <audio id="bgMusic" preload="auto"></audio>
-
-    <!-- Hidden Images (used later for particle morphing) -->
-
-    <img
-        id="indiaShape"
-        src="assets/india.png"
-        alt=""
-        hidden>
-
-    <img
-        id="flagShape"
-        src="assets/flag.png"
-        alt=""
-        hidden>
-
-    <img
-        id="textShape"
-        src="assets/text.png"
-        alt=""
-        hidden>
-
-    <!-- Future UI -->
-
-    <div id="controls">
-
-        <button id="resetBtn">
-            Reset
-        </button>
-
-        <button id="fireworkBtn">
-            Fireworks
-        </button>
-
+    <!-- Celebration Message (Hidden initially) -->
+    <div id="celebration-ui" class="hidden">
+        <h2 class="celebration-text">JAI HIND</h2>
     </div>
 
     <script src="script.js"></script>
-
 </body>
 </html>
