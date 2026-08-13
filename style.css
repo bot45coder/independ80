@@ -1,1 +1,218 @@
+/* ==========================================================================
+   CSS Reset & Base
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
 
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #050505; /* Deep dark background */
+    font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Canvas Layers
+   ========================================================================== */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#bgCanvas {
+    z-index: 1;
+    opacity: 0.8;
+}
+
+#mainCanvas {
+    z-index: 2;
+    /* Adding subtle bloom/glow to the whole canvas */
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+}
+
+/* ==========================================================================
+   Glassmorphism UI Overlay
+   ========================================================================== */
+#ui-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel {
+    background: rgba(15, 15, 20, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 3rem 4rem;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Hide UI class */
+.fade-out {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.95) !important;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+.gradient-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    /* Tricolor Gradient */
+    background: linear-gradient(90deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: gradientMove 5s ease infinite;
+    text-shadow: 0px 10px 30px rgba(255, 255, 255, 0.1);
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 1px;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ==========================================================================
+   Animated Button
+   ========================================================================== */
+.glow-button {
+    position: relative;
+    padding: 1rem 3rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ffffff;
+    background: transparent;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #FF9933, #138808, #000080);
+    background-size: 300%;
+    z-index: -1;
+    animation: gradientMove 4s infinite;
+    opacity: 0.8;
+}
+
+.glow-button::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    background: rgba(10, 10, 15, 0.9);
+    border-radius: 50px;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.glow-button:hover {
+    transform: translateY(-3px) scale(1.05);
+}
+
+.glow-button:hover::after {
+    opacity: 0.5; /* Reveals the bright gradient */
+}
+
+.glow-button:active {
+    transform: translateY(1px);
+}
+
+.glow-button span {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* ==========================================================================
+   Celebration UI
+   ========================================================================== */
+#celebration-ui {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    pointer-events: none;
+    transition: opacity 2s ease;
+}
+
+#celebration-ui.hidden {
+    opacity: 0;
+}
+
+.celebration-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 10px;
+    color: rgba(255, 255, 255, 0.1);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+@media (max-width: 768px) {
+    .glass-panel {
+        padding: 2rem;
+        width: 90%;
+    }
+    
+    .gradient-text {
+        font-size: 2.2rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .glow-button {
+        padding: 0.8rem 2rem;
+    }
+}
