@@ -1,14 +1,4 @@
-/**
- * INDIA FROM PARTICLES - Award Winning Interactive Experience
- * Senior Front-End Architecture
- * Modules: Config, SpatialHashGrid, Shapes, Particles, Fireworks, Confetti, Engine
- */
-
-// ============================================================================
-// CONFIGURATION & STATE
-// ============================================================================
 const CONFIG = {
-    // Determine particle count based on device width for 60 FPS performance
     PARTICLE_COUNT: window.innerWidth > 1200 ? 5000 : window.innerWidth > 768 ? 3000 : 1800,
     COLORS: {
         SAFFRON: '#FF9933',
@@ -17,7 +7,7 @@ const CONFIG = {
         BLUE: '#000080',
         DARK: '#050505'
     },
-    STAGE: 1, // 1: Random, 2: Map, 3: Flag, 4: Text, 5: Celebration
+    STAGE: 1, 
     TIMINGS: {
         MAP_TO_FLAG: 5000,
         FLAG_TO_TEXT: 6000,
@@ -34,11 +24,6 @@ const CONFIG = {
 let globalTime = 0;
 const mouse = { x: -1000, y: -1000, radius: CONFIG.PHYSICS.REPULSE_RADIUS };
 
-// ============================================================================
-// UTILITIES & PERFORMANCE TOOLS
-// ============================================================================
-
-// Spatial Hash Grid for highly performant O(n) nearby particle connections
 class SpatialHashGrid {
     constructor(bounds, cellSize) {
         this.bounds = bounds;
@@ -83,12 +68,9 @@ class SpatialHashGrid {
     }
 }
 
-// ============================================================================
-// SHAPE GENERATOR (Hidden Canvas Pixel Sampling)
-// ============================================================================
+
 class ShapeGenerator {
     constructor(width, height) {
-        // Use OffscreenCanvas for better performance if supported
         if (window.OffscreenCanvas) {
             this.canvas = new OffscreenCanvas(width, height);
             this.ctx = this.canvas.getContext('2d', { willReadFrequently: true });
@@ -127,7 +109,6 @@ class ShapeGenerator {
                 }
             }
         }
-        // Shuffle array to ensure random distribution when assigning to particles
         for (let i = pixels.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [pixels[i], pixels[j]] = [pixels[j], pixels[i]];
@@ -139,15 +120,12 @@ class ShapeGenerator {
         this._clear();
         this.ctx.save();
         
-        // Map Scale based on screen
         const scale = Math.min(this.width, this.height) * 0.00065;
         this.ctx.translate(this.width / 2, this.height / 2.2);
         this.ctx.scale(scale, scale);
         
-        // Simplified but recognizable path for India map
         const indiaPath = new Path2D("M304.5,-452.8 C315,-445 320,-430 322,-415 C324,-395 330,-380 345,-365 C360,-350 375,-345 385,-325 C395,-300 395,-280 380,-260 C365,-240 345,-230 335,-210 C325,-190 325,-170 335,-150 C345,-130 365,-120 375,-100 C385,-80 385,-60 375,-40 C365,-20 345,-10 335,10 C325,30 325,50 335,70 C345,90 365,100 375,120 C385,140 385,160 375,180 C365,200 345,210 335,230 C325,250 325,270 335,290 C345,310 365,320 375,340 C385,360 385,380 375,400 C365,415 350,425 330,430 C310,435 290,435 270,430 C250,425 235,415 225,400 C215,380 215,360 225,340 C235,320 255,310 265,290 C275,270 275,250 265,230 C255,210 235,200 225,180 C215,160 215,140 225,120 C235,100 255,90 265,70 C275,50 275,30 265,10 C255,-10 235,-20 225,-40 C215,-60 215,-80 225,-100 C235,-120 255,-130 265,-150 C275,-170 275,-190 265,-210 C255,-230 235,-240 225,-260 C215,-280 215,-300 225,-325 C235,-345 250,-350 265,-365 C280,-380 286,-395 288,-415 C290,-430 295,-445 304.5,-452.8 Z");
         
-        // Center the path coordinates
         this.ctx.translate(-290, 0); 
         
         this.ctx.fillStyle = CONFIG.COLORS.SAFFRON;
@@ -230,9 +208,7 @@ class ShapeGenerator {
     }
 }
 
-// ============================================================================
-// PARTICLE ENTITIES
-// ============================================================================
+
 class Particle {
     constructor(x, y, canvasWidth, canvasHeight) {
         this.x = x;
@@ -321,7 +297,6 @@ class Particle {
             this.y += this.vy;
         }
 
-        // 3. Color interpolation (simplified: snaps in this engine for performance, but rendered with alpha)
         this.color = this.targetColor;
     }
 
@@ -333,9 +308,7 @@ class Particle {
     }
 }
 
-// ============================================================================
-// FIREWORKS ENGINE (Canvas)
-// ============================================================================
+
 class FireworkParticle {
     constructor(x, y, color) {
         this.x = x;
@@ -369,9 +342,7 @@ class FireworkParticle {
     }
 }
 
-// ============================================================================
-// CONFETTI ENGINE (Canvas)
-// ============================================================================
+
 class Confetti {
     constructor(w, h) {
         this.x = Math.random() * w;
@@ -401,9 +372,7 @@ class Confetti {
     }
 }
 
-// ============================================================================
-// BACKGROUND SYSTEM
-// ============================================================================
+
 class BackgroundSystem {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
@@ -432,7 +401,6 @@ class BackgroundSystem {
     }
     
     draw(stage) {
-        // Dynamic gradient based on stage
         let grad = this.ctx.createRadialGradient(this.w/2, this.h/2, 0, this.w/2, this.h/2, this.w);
         
         if (stage === 5) {
@@ -724,9 +692,6 @@ class Engine {
     }
 }
 
-// ============================================================================
-// BOOTSTRAP
-// ============================================================================
 window.onload = () => {
     // Initiate Engine once DOM and resources are fully loaded
     const app = new Engine();
